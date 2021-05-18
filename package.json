@@ -17,7 +17,7 @@
         "grammar"
     ],
     "activationEvents": [
-        "onCommand:extension.enableScopeHover"
+        "onCommand:hscopes.never"
     ],
     "main": "./out/src/extension",
     "scripts": {
