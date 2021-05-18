@@ -15,13 +15,13 @@ import * as api from '../src/hscopes';
 suite('Scope Info', function () {
   let si: api.HScopesAPI;
   test('api - getScopeForLanguage', async function () {
-    const siExt = vscode.extensions.getExtension<api.HScopesAPI>('siegebell.scope-info');
+    const siExt = vscode.extensions.getExtension<api.HScopesAPI>('draivin.hscopes');
     si = await siExt.activate();
     assert.strictEqual(si.getScopeForLanguage('html'), 'text.html.basic');
   });
 
   test('api - getGrammar', async function () {
-    const siExt = vscode.extensions.getExtension<api.HScopesAPI>('siegebell.scope-info');
+    const siExt = vscode.extensions.getExtension<api.HScopesAPI>('draivin.hscopes');
     si = await siExt.activate();
     const g = await si.getGrammar('text.html.basic');
     const t = g.tokenizeLine('<!DOCTYPE html><body></body>', null);
@@ -54,7 +54,7 @@ suite('Scope Info', function () {
   });
 
   test('api - getScopeAt', async function () {
-    const siExt = vscode.extensions.getExtension<api.HScopesAPI>('siegebell.scope-info');
+    const siExt = vscode.extensions.getExtension<api.HScopesAPI>('draivin.hscopes');
     si = await siExt.activate();
     const file = vscode.Uri.parse('untitled:C:\test.html');
     const doc = await vscode.workspace.openTextDocument(file);

@@ -11,10 +11,9 @@ Example usage:
 
 ```ts
 import * as vscode from 'vscode';
-import * as scopeInfo from 'scope-info';
 
 async function example(doc : vscode.TextDocument, pos: vscode.Position) : void {
-  const hs = vscode.extensions.getExtension<scopeInfo.ScopeInfoAPI>('draivin.hscopes');
+  const hs = vscode.extensions.getExtension('draivin.hscopes');
   const token : scopeInfo.Token = hs.getScopeAt(doc, pos);
 }
 ```
