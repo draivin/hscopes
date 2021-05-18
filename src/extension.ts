@@ -123,7 +123,7 @@ function reloadGrammar() {
           if (matchingLanguages.length > 0) {
             const ext = matchingLanguages[0];
             const filePath = path.join(ext.extensionPath, ext.path);
-            console.info(`Scope-info: found grammar for ${scopeName} at ${filePath}`);
+            // console.info(`Scope-info: found grammar for ${scopeName} at ${filePath}`);
             let content = await fs.promises.readFile(filePath, 'utf-8');
             return await tm.parseRawGrammar(content, filePath);
           }
