@@ -8,23 +8,28 @@
 
 // A task runner that calls a custom npm script that compiles the extension.
 {
-	"version": "2.0.0",
+	"version": "0.1.0",
 
 	// we want to run npm
 	"command": "npm",
 
+	// the command is a shell script
+	"isShellCommand": true,
+
+  "suppressTaskName": true,
+
+	// show the output window only if unrecognized errors occur.
+	"showOutput": "silent",
+
 	"tasks": [
-		{
-			"label": "watch",
-			"type": "shell",
-			"args": [
-				"run",
-				"watch"
-			],
-			"isBackground": true,
-			"problemMatcher": "$tsc-watch",
-			"group": "build"
-		}
-	]
+	{
+		"taskName": "watch",
+		"args": ["run", "watch"],
+		"isWatching": true,
+		"isBuildCommand": true,
+		"isTestCommand": false,
+		"problemMatcher": "$tsc-watch"
+	}
+]
 
 }

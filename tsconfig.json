@@ -1,19 +1,16 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"target": "ES6",
-		"lib": [ "es6" ],
-		"outDir": "out",
-		"sourceMap": true,
-		"allowUnreachableCode": false,
-		"allowUnusedLabels": false,
-		"noFallthroughCasesInSwitch": true,
-		"noLib": false,
-		"pretty": true,
-		"rootDir": "."
-	},
-	"exclude": [
-		"node_modules"
-	]
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2019",
+    "lib": ["ES2019"],
+    "outDir": "out",
+    "sourceMap": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "noLib": false,
+    "pretty": true,
+    "rootDir": "."
+  },
+  "exclude": ["node_modules"]
 }

@@ -1,58 +1,46 @@
 {
-    "name": "scope-info",
-    "displayName": "Scope Info",
-    "description": "Displays the TextMate scope when you hover over text.",
-    "version": "0.2.0",
-    "publisher": "siegebell",
+    "name": "hscopes",
+    "displayName": "Hyper Scopes",
+    "description": " Supplies an API for querying TextMate scope information.",
+    "version": "0.0.1",
+    "publisher": "draivin",
     "license": "MIT",
     "engines": {
-        "vscode": "^1.7.0"
+        "vscode": "^1.52.0"
     },
     "categories": [
         "Other"
     ],
     "keywords": [
-        "TextMate", "scope", "grammar"
+        "TextMate",
+        "scope",
+        "grammar"
     ],
     "activationEvents": [
         "onCommand:extension.enableScopeHover"
     ],
     "main": "./out/src/extension",
-    "contributes": {
-        "commands": [
-            {
-                "command": "extension.enableScopeHover",
-                "title": "enable hover information",
-                "category": "scope-info"
-            },
-            {
-                "command": "extension.disableScopeHover",
-                "title": "disable hover information",
-                "category": "scope-info"
-            }
-        ]
-    },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
         "watch": "tsc -watch -p ./",
         "compile": "tsc -p ./"
     },
     "dependencies": {
+        "vscode-oniguruma": "^1.5.1",
+        "vscode-textmate": "^5.4.0"
     },
     "devDependencies": {
-        "typescript": "2.1.4",
-        "vscode": "^1.0.3",
-        "mocha": "3.2.0",
         "@types/mocha": "2.2.33",
-		"@types/node": "^6.0.40"
+        "@types/node": "^15.3.0",
+        "@types/vscode": "^1.52.0",
+        "mocha": "^8.4.0"
     },
     "bugs": {
-        "url": "https://github.com/siegebell/scope-info/issues"
+        "url": "https://github.com/draivin/hscopes/issues"
     },
-    "homepage": "https://github.com/siegebell/scope-info/blob/master/README.md",
+    "homepage": "https://github.com/draivin/hscopes/blob/master/README.md",
     "repository": {
         "type": "git",
-        "url": "https://github.com/siegebell/scope-info.git"
+        "url": "https://github.com/draivin/hscopes.git"
     }
 }
