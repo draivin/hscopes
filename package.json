@@ -1,6 +1,6 @@
 {
     "name": "hscopes",
-    "displayName": "Hyper Scopes",
+    "displayName": "HyperScopes",
     "description": " Supplies an API for querying TextMate scope information.",
     "version": "0.0.1",
     "publisher": "draivin",
