@@ -1,4 +1,4 @@
-# Scope Info
+# Hyper Scopes
 
 A meta-extension for vscode that provides TextMate scope information. Its
 intended usage is as a library for other extensions to query scope information.
