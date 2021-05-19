@@ -60,7 +60,18 @@ export class DocumentController implements vscode.Disposable {
           scopes: t.scopes,
         };
     }
-    return null;
+    // FIXME: No token matched, return last token in the line.
+    let lastToken = tokens.tokens[tokens.tokens.length - 1];
+    return {
+      range: new vscode.Range(
+        position.line,
+        lastToken.startIndex,
+        position.line,
+        lastToken.endIndex
+      ),
+      text: line.text.substring(lastToken.startIndex, lastToken.endIndex),
+      scopes: lastToken.scopes,
+    };
   }
 
   private reparsePretties(range: vscode.Range): void {
@@ -99,6 +110,7 @@ export class DocumentController implements vscode.Disposable {
   }
 
   private onChangeDocument(event: vscode.TextDocumentChangeEvent) {
+    console.log('changed');
     this.applyChanges(event.contentChanges);
   }
 
