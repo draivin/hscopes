@@ -110,7 +110,6 @@ export class DocumentController implements vscode.Disposable {
   }
 
   private onChangeDocument(event: vscode.TextDocumentChangeEvent) {
-    console.log('changed');
     this.applyChanges(event.contentChanges);
   }
 

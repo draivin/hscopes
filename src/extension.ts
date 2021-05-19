@@ -103,31 +103,43 @@ function reloadGrammar() {
   try {
     registry = new tm.Registry({
       onigLib: vscodeOnigurumaLib,
+      getInjections: (scopeName) => {
+        let extensions = vscode.extensions.all.filter(
+          (x) => x.packageJSON && x.packageJSON.contributes && x.packageJSON.contributes.grammars
+        );
+
+        let grammars = extensions.flatMap((e) => {
+          return (e.packageJSON as ExtensionPackage).contributes!.grammars;
+        });
+
+        return grammars
+          .filter((g) => g.injectTo && g.injectTo.some((s) => s === scopeName))
+          .map((g) => g.scopeName);
+      },
+
       loadGrammar: async (scopeName) => {
         try {
-          const grammars = vscode.extensions.all
-            .filter(
-              (x) =>
-                x.packageJSON && x.packageJSON.contributes && x.packageJSON.contributes.grammars
-            )
-            .reduce(
-              (a: (ExtensionGrammar & { extensionPath: string })[], b) => [
-                ...a,
-                ...(b.packageJSON as ExtensionPackage).contributes.grammars.map((x) =>
-                  Object.assign({ extensionPath: b.extensionPath }, x)
-                ),
-              ],
-              []
-            );
-          const matchingLanguages = grammars.filter((g) => g.scopeName === scopeName);
-          if (matchingLanguages.length > 0) {
-            const ext = matchingLanguages[0];
-            const filePath = path.join(ext.extensionPath, ext.path);
-            // console.info(`Scope-info: found grammar for ${scopeName} at ${filePath}`);
+          let extensions = vscode.extensions.all.filter(
+            (x) => x.packageJSON && x.packageJSON.contributes && x.packageJSON.contributes.grammars
+          );
+
+          let grammars = extensions.flatMap((e) => {
+            return (e.packageJSON as ExtensionPackage).contributes!.grammars.map((g) => {
+              return { extensionPath: e.extensionPath, ...g };
+            });
+          });
+
+          const matchingGrammars = grammars.filter((g) => g.scopeName === scopeName);
+
+          if (matchingGrammars.length > 0) {
+            const grammar = matchingGrammars[0];
+            const filePath = path.join(grammar.extensionPath, grammar.path);
             let content = await fs.promises.readFile(filePath, 'utf-8');
             return await tm.parseRawGrammar(content, filePath);
           }
-        } catch (err) {}
+        } catch (err) {
+          console.error(`HyperScopes: Unable to load grammar for scope ${scopeName}.`, err);
+        }
         return undefined;
       },
     });
