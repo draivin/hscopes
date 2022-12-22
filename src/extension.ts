@@ -13,12 +13,8 @@ const wasmBin = fs.readFileSync(
 ).buffer;
 const vscodeOnigurumaLib = oniguruma.loadWASM(wasmBin).then(() => {
   return {
-    createOnigScanner(patterns: any) {
-      return new oniguruma.OnigScanner(patterns);
-    },
-    createOnigString(s: any) {
-      return new oniguruma.OnigString(s);
-    },
+    createOnigScanner: (sources: any) => oniguruma.createOnigScanner(sources),
+    createOnigString: (s: any) => oniguruma.createOnigString(s),
   };
 });
 
@@ -153,7 +149,20 @@ function reloadGrammar() {
   for (const doc of vscode.workspace.textDocuments) openDocument(doc);
 }
 
+const blacklist = [
+  '\\settings',
+  '\\ignoredSettings',
+  '\\launch',
+  '\\token-styling',
+  '\\textmate-colors',
+  '\\workbench-colors',
+];
+
 async function openDocument(doc: vscode.TextDocument) {
+  for (let entry of blacklist) {
+    if (doc.fileName.startsWith(entry)) return;
+  }
+
   try {
     const prettyDoc = documents.get(doc.uri);
     if (prettyDoc) {

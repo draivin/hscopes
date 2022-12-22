@@ -7,7 +7,7 @@ export class DocumentController implements vscode.Disposable {
   private subscriptions: vscode.Disposable[] = [];
 
   // Stores the state for each line
-  private grammarState: tm.StackElement[] = [];
+  private grammarState: tm.StateStack[] = [];
   private grammar: tm.IGrammar;
 
   public constructor(
