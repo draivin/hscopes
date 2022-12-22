@@ -100,8 +100,26 @@ export class DocumentController implements vscode.Disposable {
     for (const change of sortedChanges) {
       try {
         const delta = textUtil.toRangeDelta(change.range, change.text);
-        const editRange = textUtil.rangeDeltaNewRange(delta);
 
+        if (delta.linesDelta < 0) {
+          let deleteStart = delta.start.line + 1 + delta.linesDelta;
+          if (deleteStart < 0) {
+            return this.refresh();
+          }
+          this.grammarState.splice(deleteStart, -delta.linesDelta);
+        } else if (delta.linesDelta > 0) {
+          this.grammarState.splice(
+            delta.start.line,
+            0,
+            ...Array(delta.linesDelta).fill(tm.INITIAL)
+          );
+        }
+
+        if (this.grammarState.length != this.document.lineCount) {
+          return this.refresh();
+        }
+
+        const editRange = textUtil.rangeDeltaNewRange(delta);
         this.reparsePretties(editRange);
       } catch (e) {
         console.error(e);
