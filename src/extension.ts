@@ -72,6 +72,14 @@ export function activate(context: vscode.ExtensionContext): api.HScopesAPI {
   reloadGrammar();
 
   const api: api.HScopesAPI = {
+    reloadScope(document: vscode.TextDocument): boolean {
+      const prettyDoc = documents.get(document.uri);
+      if (prettyDoc) {
+        prettyDoc.refresh();
+        return true;
+      }
+      return false;
+    },
     getScopeAt(document: vscode.TextDocument, position: vscode.Position): api.Token | null {
       try {
         const prettyDoc = documents.get(document.uri);
@@ -91,6 +99,13 @@ export function activate(context: vscode.ExtensionContext): api.HScopesAPI {
       return null;
     },
   };
+
+  context.subscriptions.push(
+    vscode.commands.registerTextEditorCommand('hscopes.reloadCurrentDocument', (editor) => {
+      api.reloadScope(editor.document);
+    })
+  );
+
   return api;
 }
 

@@ -11,6 +11,14 @@
     "categories": [
         "Other"
     ],
+    "contributes": {
+        "commands": [
+            {
+                "command": "hscopes.reloadCurrentDocument",
+                "title": "HyperScopes: Reload Scopes For Current Document"
+            }
+        ]
+    },
     "keywords": [
         "TextMate",
         "scope",

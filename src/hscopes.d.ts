@@ -39,6 +39,7 @@ export interface Token {
 }
 
 export interface HScopesAPI {
+  reloadScope(document: vscode.TextDocument): boolean;
   getScopeAt(document: vscode.TextDocument, position: vscode.Position): Token | null;
   getGrammar(scopeName: string): Promise<IGrammar | null>;
   getScopeForLanguage(language: string): string | null;
